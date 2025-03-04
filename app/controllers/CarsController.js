@@ -6,6 +6,7 @@ import { Pop } from "../utils/Pop.js";
 export class CarsController {
   constructor() {
     AppState.on('cars', this.drawCars)
+    // NOTE observer for identity will be triggered whenever someone logs in
     AppState.on('identity', this.drawCars)
     AppState.on('identity', this.drawCarForm)
     this.getCars()
@@ -39,6 +40,8 @@ export class CarsController {
       const formElem = event.target
       const rawCarData = getFormData(formElem)
       await carsService.createCar(rawCarData)
+      // @ts-ignore
+      formElem.reset()
     } catch (error) {
       console.error('COULD NOT CREATE CAR', error);
       Pop.error(error, 'Could not create car!')
@@ -47,6 +50,7 @@ export class CarsController {
 
   async deleteCar(carId) {
     try {
+      // Pop.confirm  returns a promise that will be resolved after the user interacts with the buttons
       const confirmed = await Pop.confirm('Are you sure you want to delete this car?', 'It will be gone forever', 'Yes I am sure', 'No I have changed my mind')
 
       if (!confirmed) {
