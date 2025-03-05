@@ -1,3 +1,4 @@
+import { AppState } from "../AppState.js"
 
 
 export class House {
@@ -16,6 +17,23 @@ export class House {
     this.id = data.id
   }
 
+  get deleteButton() {
+    const user = AppState.identity
+
+    if (user == null) {
+      return ''
+    }
+    if (this.creatorId != user.id) {
+      return ''
+    }
+
+    return `
+     <button onclick="app.housesController.deleteHouse('${this.id}')" class="btn btn-outline-danger">
+        Delete Car
+      </button>
+    `
+  }
+
   get HTMLTemplate() {
     return /* html */`
     <div class="col-12">
@@ -31,7 +49,7 @@ export class House {
               <small>Listed on ${this.createdAt.toLocaleDateString()}</small>
               <div class="d-flex mt-1 justify-content-between align-items-center">
                 <p class="fs-3">$${this.price.toLocaleString()}</p>
-                <!-- <p class="fs-4">Engine: ${this.engineType}</p> -->
+                
               </div>
               <p>${this.description}</p>
             </div>
@@ -40,7 +58,7 @@ export class House {
                 <img src="${this.creator.picture}" alt="${this.creator.name}" class="creator-img">
                 <span>${this.creator.name}</span>
               </div>
-             <!-- ${this.deleteButton} -->
+             ${this.deleteButton}
             </div>
           </div>
         </div>

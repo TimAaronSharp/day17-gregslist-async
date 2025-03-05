@@ -1,6 +1,7 @@
 import { AppState } from "../AppState.js";
 import { House } from "../models/House.js";
 import { api } from "../utils/Axios.js";
+import { Pop } from "../utils/Pop.js";
 
 
 
@@ -33,6 +34,16 @@ class HousesService {
     const house = new House(response.data)
     AppState.houses.push(house)
 
+  }
+
+  async deleteHouse(houseId) {
+    const response = await api.delete(`api/houses/${houseId}`)
+    const houses = AppState.houses
+    console.log("deleted car response data is ", response.data);
+    const houseToRemove = houses.find(house => house.id == houseId)
+    const houseIndex = houses.findIndex(house => house.id == houseId)
+    houses.splice(houseIndex, 1)
+    Pop.toast(`${houseToRemove.year} ${houseToRemove.bedrooms} ${houseToRemove.bathrooms} was deleted`)
   }
 
 }

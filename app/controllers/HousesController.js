@@ -7,7 +7,8 @@ import { Pop } from "../utils/Pop.js";
 export class HousesController {
   constructor() {
     AppState.on('houses', this.drawHouses)
-    console.log('houses Controller constructing');
+    AppState.on('identity', this.drawHouses)
+    AppState.on('identity', this.showHouseForm)
     this.getHouses()
   }
 
@@ -24,6 +25,13 @@ export class HousesController {
 
     const housesElem = document.getElementById('houseListings')
     housesElem.innerHTML = housesContent
+
+  }
+
+  showHouseForm() {
+    const houseFormElem = document.getElementById('house-form')
+    houseFormElem.classList.remove('d-none')
+    console.log('AppState identity is ', AppState.identity);
 
   }
 
@@ -45,5 +53,17 @@ export class HousesController {
     }
 
 
+  }
+
+  async deleteHouse(houseId) {
+    try {
+      const confirmed = await Pop.confirm('Are you sure you want to delete this house?')
+      if (!confirmed) return
+
+      await housesService.deleteHouse(houseId)
+    } catch (error) {
+      Pop.toast('Could not delete house', error.message)
+      console.error(error)
+    }
   }
 }
