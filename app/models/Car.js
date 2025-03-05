@@ -26,7 +26,7 @@ export class Car {
       return ''
     }
 
-    // NTOE if the logged in user did not create the car
+    // NOTE if the logged in user did not create the car
     if (this.creatorId != user.id) {
       return ''
     }
