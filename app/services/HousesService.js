@@ -24,13 +24,13 @@ class HousesService {
 
 
     AppState.houses = houses
-    console.log('houses are ', houses);
+    // console.log('houses are ', houses);
 
   }
 
   async createHouse(houseData) {
     const response = await api.post('api/houses', houseData)
-    console.log('New car response is ', response.data);
+    // console.log('New car response is ', response.data);
     const house = new House(response.data)
     AppState.houses.push(house)
 
@@ -39,7 +39,7 @@ class HousesService {
   async deleteHouse(houseId) {
     const response = await api.delete(`api/houses/${houseId}`)
     const houses = AppState.houses
-    console.log("deleted car response data is ", response.data);
+    // console.log("deleted car response data is ", response.data);
     const houseToRemove = houses.find(house => house.id == houseId)
     const houseIndex = houses.findIndex(house => house.id == houseId)
     houses.splice(houseIndex, 1)

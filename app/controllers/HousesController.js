@@ -31,7 +31,7 @@ export class HousesController {
   showHouseForm() {
     const houseFormElem = document.getElementById('house-form')
     houseFormElem.classList.remove('d-none')
-    console.log('AppState identity is ', AppState.identity);
+    // console.log('AppState identity is ', AppState.identity);
 
   }
 
@@ -40,7 +40,7 @@ export class HousesController {
       event.preventDefault()
       const formElem = event.target
       const houseData = getFormData(formElem)
-      console.log('form data is ', houseData);
+      // console.log('form data is ', houseData);
       await housesService.createHouse(houseData)
 
     } catch (error) {
