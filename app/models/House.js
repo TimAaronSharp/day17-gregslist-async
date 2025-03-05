@@ -83,7 +83,7 @@ export class House {
 
 
 
-{/* <div class="col-12">
+/*{ <div class="col-12">
     <div class="row bg-light shadow car-border mb-3" style="border-color: ${this.color};">
       <div class="col-md-4 px-0">
         <img src="${this.imgUrl}" alt="A picture of a ${this.make} ${this.model} for sale" class="car-img">
@@ -109,7 +109,7 @@ export class House {
         </div>
       </div>
     </div>
-  </div> */}
+  </div> }*/
 
 
 //   <div class="col-md-12">
